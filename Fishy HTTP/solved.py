@@ -1,7 +1,6 @@
 import re
 import base64
 
-# Bảng ánh xạ tag -> hex
 tag_hex = {
     "cite": "0",
     "h1": "1",
@@ -28,7 +27,6 @@ def hex_string_to_bytes(hex_str: str) -> str:
     return num_array.decode("ascii", errors="ignore")
 
 def decode_data(data: str) -> str:
-    """Giải mã nội dung trong <body> của file HTML"""
     body_match = re.search(r"<body>(.*?)</body>", data, re.DOTALL | re.IGNORECASE)
     if not body_match:
         return ""
@@ -46,7 +44,6 @@ def decode_data(data: str) -> str:
     return hex_string_to_bytes(hex_str)
 
 def extract_initials_from_file(file_path: str) -> str:
-    """Đọc file và trả về chuỗi chữ cái đầu tiên của mỗi từ (joined)."""
     initials = []
     try:
         with open(file_path, "r", encoding="utf-8") as file:
@@ -84,3 +81,4 @@ if __name__ == "__main__":
     txt_path = r"C:\Users\nguye\Downloads\HTB\Fishy HTTP\Yo.txt"
     initials = extract_initials_from_file(txt_path)
     print("Initials decoded (base64):", decode_base64(initials))
+
